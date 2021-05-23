@@ -1,0 +1,26 @@
+{
+  "name": "react-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack-dev-server --config ./webpack/webpack.config.dev.js --open",
+    "build": "rm -rf build/* && webpack --config ./webpack/webpack.config.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/core": "^7.14.0",
+    "@babel/preset-env": "^7.14.0",
+    "@babel/preset-react": "^7.13.13",
+    "babel-loader": "^8.2.2",
+    "html-webpack-plugin": "^5.3.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "webpack": "^5.36.2",
+    "webpack-cli": "^3.3.4",
+    "webpack-dev-server": "^3.7.1"
+  }
+}
