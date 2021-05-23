@@ -1,0 +1,10 @@
+{
+  "trailingComma": "all", // 对象的最后一个属性末尾也会添加 ,
+  "tabWidth": 2,
+  "semi": false,
+  "singleQuote": true,
+  "endOfLine": "lf",
+  "printWidth": 120,
+  "bracketSpacing": true,
+  "arrowParens": "always"
+}
