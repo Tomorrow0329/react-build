@@ -1,6 +1,21 @@
+// babel-loader 使用 babel 解析文件;
+// @babel/core 是 babel 的核心模块;
+// @babel/preset-react 转译 jsx 语法;
+// @babel/preset-env 解析/转译 ES6语法
+//  @babel/plugin-transform-runtime 它和 @babel/preset-env 一样都能提供 ES 新API 的垫片，都可实现按需加载，但前者不会污染原型链；还可以解决Promise 或 .includes 这种新的 es 特性
 {
+  // presets 的执行顺序是从后到前的
   "presets": [
+    [
+      "@babel/preset-env",
+      {
+        // 防止babel将任何模块类型都转译成CommonJS类型，导致tree-shaking失效问题
+        "modules": false,
+        "loose": true
+      }
+    ],
     "@babel/preset-react",
-    "@babel/preset-env"
-  ]
+    "@babel/preset-typescript"
+  ],
+  "plugins": [["@babel/plugin-proposal-class-properties", { "loose": true }]]
 }

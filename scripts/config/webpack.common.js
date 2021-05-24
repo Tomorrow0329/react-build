@@ -21,7 +21,7 @@ module.exports = {
   entry: {
     // path.resolve ：node 的官方 api，可以将路径或者路径片段解析成绝对路径。
     // __dirname ：其总是指向被执行 js 文件的绝对路径，比如在我们 webpack 文件中访问了 __dirname ，那么它的值就是在电脑系统上的绝对路径，
-    app: path.resolve(PROJECT_PATH, './src/app.js'),
+    app: path.resolve(PROJECT_PATH, './src/index.tsx'),
   },
   output: {
     filename: 'js/[name].[hash:8].js',
@@ -33,9 +33,25 @@ module.exports = {
    * loader 可以将文件从不同的语言（如 TypeScript）转换为 JavaScript，或将内联图像转换为 data URL。
    * loader 甚至允许你直接在 JavaScript 模块中 import CSS文件！
    */
+  resolve: {
+    // resolve 属性，在 extensions 中定义好文件后缀名后，在 import 某个文件的时候可以省略后缀；
+    // 依次尝试进行查找，所以我们在配置时尽量把最常用到的后缀放到最前面，可以缩短查找时间；
+    extensions: ['.tsx', '.ts', '.js', '.json'],
+    alias: {
+      Src: path.resolve(PROJECT_PATH, './src'),
+      Components: path.resolve(PROJECT_PATH, './src/components'),
+      Utils: path.resolve(PROJECT_PATH, './src/utils'),
+    },
+  },
   module: {
     rules: [
       // webpack loader 的执行顺序是从右到左，即从后往前;
+      {
+        test: /\.(tsx?|js)$/,
+        loader: 'babel-loader',
+        options: { cacheDirectory: true }, // 【优化】babel-loader 在执行的时候，可能会产生一些运行期间重复的公共文件，造成代码体积大冗余，同时也会减慢编译效率，所以我们开启 cacheDirectory 将这些公共文件缓存起来，下次编译就会加快很多
+        exclude: /node_modules/, // node_modules 目录不需要我们去编译，排除后，有效提升编译效率
+      },
       {
         test: /\.css$/,
         use: [
