@@ -42,5 +42,6 @@ module.exports = {
         js: 'never',
       },
     ],
+    'import/no-extraneous-dependencies': [ERROR, { devDependencies: true }],
   },
 }
