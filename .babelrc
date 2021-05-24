@@ -10,6 +10,8 @@
       "@babel/preset-env",
       {
         // 防止babel将任何模块类型都转译成CommonJS类型，导致tree-shaking失效问题
+        // 目的在于不要将 import 和 export 关键字处理成 commonJS 的模块导出引入方式，比如 require ，
+        // 这样的话才能支持 tree-shaking，因为我们的tree-shaking，在 ES6 模块导入方式下才会有效。
         "modules": false,
         "loose": true
       }

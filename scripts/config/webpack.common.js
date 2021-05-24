@@ -12,10 +12,18 @@
  * html-webpack-plugin：这个插件能帮助我们将打包后的 js 文件自动引进 html 文件中；
  * webpack-dev-server：可以在本地起一个 http 服务，通过简单的配置还可指定其端口、热更新的开启等；
  * dev-tool：可以帮助我们将编译后的代码映射回原始源代码，即大家经常听到的 source-map；
+ * webpackbar: [优化]显示编译进度
+ * fork-ts-checker-webpack-plugin: [优化] 编译时针对ts类型文件，在我们打包或启动本地服务时给予错误提示,防止一些隐性 bug 存在；
+ * hard-source-webpack-plugin : [优化]一个能大大提高二次编译速度的神器,它为程序中的模块（如 lodash）提供了一个中间缓存，放到本项目 node_modules/.cache/hard-source 下，就是 hard-source-webpack-plugin ，首次编译时会耗费稍微比原来多一点的时间，因为它要进行一个缓存工作，但是再之后的每一次构建都会变得快很多;
+ * mini-css-extract-plugin: [优化]抽离出样式文件
+ * purgecss-webpack-plugin :[优化]去除未使用/无意义 css
  */
 const path = require('path')
 const { PROJECT_PATH, isDev } = require('../constants')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const WebpackBar = require('webpackbar')
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
+const HardSourceWebpackPlugin = require('hard-source-webpack-plugin')
 
 module.exports = {
   entry: {
@@ -107,10 +115,19 @@ module.exports = {
       },
     ],
   },
+  optimization: {
+    // TODO! 再仔细看下文档 关于这里的介绍；
+    // 把一些引用的第三方包也打成单独的 chunk,不需要重复引用
+    splitChunks: {
+      chunks: 'all',
+      name: true,
+    },
+  },
   plugins: [
     new HtmlWebpackPlugin({
       template: path.resolve(PROJECT_PATH, './public/index.html'),
       filename: 'index.html',
+      cache: false,
       minify: isDev
         ? false
         : {
@@ -128,5 +145,15 @@ module.exports = {
             useShortDoctype: true,
           },
     }),
+    new WebpackBar({
+      name: isDev ? '正在启动' : '正在打包',
+      color: '#fa8c16',
+    }),
+    new ForkTsCheckerWebpackPlugin({
+      typescript: {
+        configFile: path.resolve(PROJECT_PATH, './tsconfig.json'),
+      },
+    }),
+    new HardSourceWebpackPlugin(),
   ],
 }
