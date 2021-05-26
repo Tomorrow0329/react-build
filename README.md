@@ -20,7 +20,7 @@ b. 用法：根目录需添加文件 .editorconfig；<br>
 
 ###### 2、NPM 包 Prettier<br>
 
-a. 功能：统一项目风格，对象末尾添加“,”、使用单引号还是双引号、在对象中的括号之间打印空格 等；
+a. 功能：统一项目风格，对象末尾添加“,”、使用单引号还是双引号、在对象中的括号之间打印空格 等；<br>
 b. 用法：npm install prettier -D；根目录需添加文件 .prettierrc；安装 VScode 扩展 Prettier - Code formatter ctrl+s 时就可以自动规范格式啦(原来是它！)；
 
 ###### 3、ESLint、StyleLint；
@@ -42,17 +42,20 @@ b.
 
 ###### 6、Loader 配置
 
-a.基础 Loader: style-loader、css/less/sass-loader、url-loader(处理图片)、postcss-loader(修复 css 兼容问题);<br>
+a.基础 Loader: style-loader(将 CSS 字符串处理为最终的 CSS 代码的 Style 标签放到 head 标签里)、css-loader(解析文件引入，转换成 css 字符串)、/less/sass-loader、url-loader(处理图片)、postcss-loader(修复 css 兼容问题);<br>
 b.babel-loader 编译.ts/.tsx/.jsx 文件<br>
 
 ## 支持 React
 
-1、安装 react react-dom；<br>
-2、配置 babel-loader/@babel/core/@babel/preset-react:<br>
+###### 1、安装 react react-dom；<br>
+
+###### 2、配置 babel-loader/@babel/core/@babel/preset-react:<br>
+
 a. babel-loader 使用 babel 解析文件;<br>
 b.@babel/core 是 babel 的核心模块;<br>
 c.@babel/preset-react 转译 jsx 语法;<br>
-3、配置 .babelrc
+
+###### 3、配置 .babelrc
 
 ```
 {
@@ -62,9 +65,11 @@ c.@babel/preset-react 转译 jsx 语法;<br>
 
 ## 支持 TypeScript
 
-1、安装 babel 插件：@babel/preset-typescript --它直接去掉 ts 的类型声明，然后再用其他 babel 插件进行编译<br>
-2、修改.babelrc 配置<br>
-3、配置 tsconfig.json<br>
+###### 1、安装 babel 插件：@babel/preset-typescript --它直接去掉 ts 的类型声明，然后再用其他 babel 插件进行编译<br>
+
+###### 2、修改.babelrc 配置<br>
+
+###### 3、配置 tsconfig.json<br>
 
 ## 配置优化
 
